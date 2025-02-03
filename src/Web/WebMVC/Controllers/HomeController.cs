@@ -1,4 +1,5 @@
-﻿using RTCodingExercise.Microservices.Models;
+﻿using Catalog.API.Repositories;
+using RTCodingExercise.Microservices.Models;
 using System.Diagnostics;
 
 namespace RTCodingExercise.Microservices.Controllers
@@ -6,15 +7,18 @@ namespace RTCodingExercise.Microservices.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public IPlateRepository _plateRepository;
+    
+        public HomeController(ILogger<HomeController> logger, IPlateRepository plateRepository)
         {
             _logger = logger;
+            _plateRepository = plateRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            
+            return  View( _plateRepository.GetPlates());
         }
 
         public IActionResult Privacy()
