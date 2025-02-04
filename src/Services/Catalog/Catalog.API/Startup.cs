@@ -2,6 +2,7 @@
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using Catalog.API.Repositories;
+using Catalog.API.Services;
 
 namespace Catalog.API
 {
@@ -46,7 +47,8 @@ namespace Catalog.API
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-            services.AddScoped<IPlateRepository, PlateRepository>();
+            services.AddScoped<IPlateService, PlateService>();
+            services.AddScoped<IPlateRepository, PlateRepository>();           
             services.AddSingleton(Log.Logger);
             services.AddControllers();
             services.AddControllersWithViews();

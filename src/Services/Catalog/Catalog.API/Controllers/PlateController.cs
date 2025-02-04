@@ -1,17 +1,18 @@
 ﻿using Catalog.API.Repositories;
+using Catalog.API.Services;
 
 namespace Catalog.API.Controllers
 {
     public class PlateController: Controller
     {
-        public IPlateRepository _plateRepository;
-        public PlateController(IPlateRepository plateRepository) {
-        _plateRepository = plateRepository;
+        public IPlateService _plateService;
+        public PlateController(IPlateService plateService) {
+            _plateService = plateService;
         }
         [HttpGet("/all")]
         public  IActionResult GetPlates()
         {
-            var plates =  _plateRepository.GetPlates();
+            var plates = _plateService.GetAll();
             return Ok(plates);
         }
     }
