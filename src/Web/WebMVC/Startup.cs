@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using RabbitMQ.Client;
+using WebMVC.Services;
 
 namespace RTCodingExercise.WebMVC
 {
@@ -18,7 +19,7 @@ namespace RTCodingExercise.WebMVC
             services.AddControllers();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-
+            services.AddHttpClient<ICatalogService, CatalogService>(c => c.BaseAddress = new Uri("http://catalog-api"));
             services.AddMassTransit(x =>
             {
                 //x.AddConsumer<ConsumerClass>();

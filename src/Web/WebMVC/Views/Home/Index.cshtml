@@ -1,17 +1,32 @@
 ﻿@model List<Catalog.Domain.Plate>
 
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Hot Plates:</h1>
-
-    <ul>
-        @foreach (var element in Model)
-        {
-            <li>@Html.DisplayFor(m => element)</li>
-        }
-    </ul>
-   
+	<h1 class="display-4">Welcome</h1>
 </div>
+<table>
+	<thead>
+		<tr>
+			<th>|Registration |</th>
+			<th>Purchase price |</th>
+			<th>Sale price |</th>
+			<th>Letters |</th>
+			<th>Numbers |</th>
+		</tr>
+	</thead>
+	<tbody>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Registration</td>
+			<td>@item.PurchasePrice</td>
+			<td>@item.SalePrice</td>
+			<td>@item.Letters</td>
+			<td>@item.Numbers</td>
+		</tr>
+	}
+	</tbody>
+</table>

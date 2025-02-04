@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
+using Catalog.API.Repositories;
 
 namespace Catalog.API
 {
@@ -45,7 +46,8 @@ namespace Catalog.API
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-
+            services.AddScoped<IPlateRepository, PlateRepository>();
+            services.AddSingleton(Log.Logger);
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddRazorPages();

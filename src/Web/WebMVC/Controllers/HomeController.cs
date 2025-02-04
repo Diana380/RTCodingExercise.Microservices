@@ -1,24 +1,24 @@
-﻿using Catalog.API.Repositories;
-using RTCodingExercise.Microservices.Models;
+﻿using RTCodingExercise.Microservices.Models;
 using System.Diagnostics;
+using WebMVC.Services;
 
 namespace RTCodingExercise.Microservices.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public IPlateRepository _plateRepository;
+        private readonly ICatalogService _catalogService;
     
-        public HomeController(ILogger<HomeController> logger, IPlateRepository plateRepository)
+        public HomeController(ILogger<HomeController> logger, ICatalogService catalogService)
         {
             _logger = logger;
-            _plateRepository = plateRepository;
+            _catalogService = catalogService;
         }
 
         public async Task<IActionResult> Index()
         {
-            
-            return  View( _plateRepository.GetPlates());
+            var plates = await _catalogService.GetAll();
+            return  View(plates);
         }
 
         public IActionResult Privacy()

@@ -4,14 +4,15 @@ namespace Catalog.API.Controllers
 {
     public class PlateController: Controller
     {
-        public PlateRepository _plateRepository;
-        public PlateController(PlateRepository plateRepository) {
+        public IPlateRepository _plateRepository;
+        public PlateController(IPlateRepository plateRepository) {
         _plateRepository = plateRepository;
         }
-        public IActionResult GetPlates()
+        [HttpGet("/all")]
+        public  IActionResult GetPlates()
         {
-            var plates = _plateRepository.GetPlates();
-            return View();
+            var plates =  _plateRepository.GetPlates();
+            return Ok(plates);
         }
     }
 }

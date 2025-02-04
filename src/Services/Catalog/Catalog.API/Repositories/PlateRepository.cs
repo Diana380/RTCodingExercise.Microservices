@@ -17,9 +17,9 @@ namespace Catalog.API.Repositories
             _logger = logger;
         }
 
-        public List<Plate> GetPlates()
+        public  List<Plate> GetPlates()
         {
-            return _context.Plates.ToList();
+            return  _context.Plates.ToList();
         }
     }
 }
