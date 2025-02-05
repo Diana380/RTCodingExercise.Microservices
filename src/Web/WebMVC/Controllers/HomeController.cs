@@ -1,5 +1,6 @@
 ﻿using RTCodingExercise.Microservices.Models;
 using System.Diagnostics;
+using WebMVC.Helpers;
 using WebMVC.Services;
 
 namespace RTCodingExercise.Microservices.Controllers
@@ -15,10 +16,24 @@ namespace RTCodingExercise.Microservices.Controllers
             _catalogService = catalogService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var plates = await _catalogService.GetAll();
-            return  View(plates);
+            var results = await _catalogService.GetAll();
+            ViewData["PriceSortParam"] = String.IsNullOrEmpty(sortOrder) ? "sale_price" : "";        
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                results = results.Where(s => s.Registration.Contains(searchString.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "sale_price":
+                    results = results.OrderBy(r => r.SalePrice);
+                    break;               
+                default:
+                    break;
+            }
+            return View(results);
         }
 
         public IActionResult Privacy()

@@ -1,4 +1,4 @@
-﻿@model List<Catalog.Domain.Plate>
+﻿@model IEnumerable<Catalog.Domain.Plate>
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -7,12 +7,21 @@
 <div class="text-center">
 	<h1 class="display-4">Welcome</h1>
 </div>
+<form asp-action="Index" method="get">
+	<div class="form-actions no-color">
+		<p>
+			<label>Find by letters or numbers: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /></label>
+			<input type="submit" value="Search" class="btn btn-default" /> |
+			<a asp-action="Index">Back to Full List</a>
+		</p>
+	</div>
+</form>
 <table>
 	<thead>
 		<tr>
 			<th>|Registration |</th>
 			<th>Purchase price |</th>
-			<th>Sale price |</th>
+			<th><a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParam"]">@Html.DisplayNameFor(model => model.SalePrice)</a>|</th>
 		</tr>
 	</thead>
 	<tbody>
